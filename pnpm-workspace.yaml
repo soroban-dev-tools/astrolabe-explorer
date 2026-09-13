@@ -1,0 +1,2 @@
+onlyBuiltDependencies:
+  - "@stellar/stellar-sdk"
