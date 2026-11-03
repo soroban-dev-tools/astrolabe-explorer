@@ -15,6 +15,25 @@ import {
 } from "react";
 import { Astrolabe } from "@astrolabe/sdk";
 
+// Polyfill schemaAttestationCount on client prototype if missing from SDK version
+if (!("schemaAttestationCount" in Astrolabe.prototype)) {
+  (Astrolabe.prototype as any).schemaAttestationCount = async function (
+    schemaUid: string | Uint8Array,
+  ): Promise<bigint> {
+    const clean =
+      typeof schemaUid === "string" && schemaUid.startsWith("0x")
+        ? schemaUid.slice(2)
+        : schemaUid;
+    const { Buffer } = await import("buffer");
+    const buf =
+      typeof clean === "string" ? Buffer.from(clean, "hex") : Buffer.from(clean);
+    const tx = await this.attestation.schema_attestation_count({
+      schema_uid: buf,
+    });
+    return tx.result;
+  };
+}
+
 export interface DeploymentConfig {
   networkPassphrase: string;
   rpcUrl: string;
