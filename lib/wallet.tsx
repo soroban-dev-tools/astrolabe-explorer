@@ -26,7 +26,9 @@ if (!("schemaAttestationCount" in Astrolabe.prototype)) {
         : schemaUid;
     const { Buffer } = await import("buffer");
     const buf =
-      typeof clean === "string" ? Buffer.from(clean, "hex") : Buffer.from(clean);
+      typeof clean === "string"
+        ? Buffer.from(clean, "hex")
+        : Buffer.from(clean);
     const tx = await this.attestation.schema_attestation_count({
       schema_uid: buf,
     });
@@ -61,8 +63,12 @@ let kitPromise: Promise<Kit> | null = null;
 async function getKit(): Promise<Kit> {
   if (!kitPromise) {
     kitPromise = (async () => {
-      const { StellarWalletsKit, WalletNetwork, allowAllModules, FREIGHTER_ID } =
-        await import("@creit.tech/stellar-wallets-kit");
+      const {
+        StellarWalletsKit,
+        WalletNetwork,
+        allowAllModules,
+        FREIGHTER_ID,
+      } = await import("@creit.tech/stellar-wallets-kit");
       return new StellarWalletsKit({
         network: WalletNetwork.TESTNET,
         selectedWalletId: FREIGHTER_ID,
@@ -105,7 +111,8 @@ export function WalletProvider({
         const kit = await getKit();
         const { signedTxXdr, signerAddress } = await kit.signTransaction(xdr, {
           address,
-          networkPassphrase: opts?.networkPassphrase ?? config.networkPassphrase,
+          networkPassphrase:
+            opts?.networkPassphrase ?? config.networkPassphrase,
         });
         return { signedTxXdr, signerAddress };
       },
@@ -133,7 +140,9 @@ export function WalletProvider({
     [address, connect, disconnect, readClient, writeClient, config],
   );
 
-  return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
+  return (
+    <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
+  );
 }
 
 export function useWallet(): WalletState {

@@ -74,9 +74,7 @@ export default function IssuePage() {
   };
 
   if (!writeClient) {
-    return (
-      <Empty>Connect a wallet to issue an attestation on Testnet.</Empty>
-    );
+    return <Empty>Connect a wallet to issue an attestation on Testnet.</Empty>;
   }
 
   return (
@@ -130,7 +128,10 @@ export default function IssuePage() {
           </Field>
         ))}
 
-        <Button disabled={busy || !subject.trim()} onClick={() => void submit()}>
+        <Button
+          disabled={busy || !subject.trim()}
+          onClick={() => void submit()}
+        >
           {busy ? "Signing…" : "Attest"}
         </Button>
       </Card>

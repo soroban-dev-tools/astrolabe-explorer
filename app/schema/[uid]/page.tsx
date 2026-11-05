@@ -33,7 +33,8 @@ export default function SchemaPage() {
     };
   }, [readClient, uid]);
 
-  if (error) return <Card className="text-sm text-red-400">Failed: {error}</Card>;
+  if (error)
+    return <Card className="text-sm text-red-400">Failed: {error}</Card>;
   if (schema === undefined) return <Empty>Loading schema…</Empty>;
   if (schema === null) return <Empty>Schema not found for this uid.</Empty>;
 
@@ -64,7 +65,9 @@ export default function SchemaPage() {
         </div>
         <div>
           <div className="text-sm text-muted">Attestations issued</div>
-          <div className="text-fg">{count === null ? "—" : count.toString()}</div>
+          <div className="text-fg">
+            {count === null ? "—" : count.toString()}
+          </div>
         </div>
       </Card>
 
@@ -83,8 +86,8 @@ export default function SchemaPage() {
       </section>
 
       <p className="text-sm text-muted">
-        The per-schema list of attestations lives off chain in the indexer, which
-        is out of scope for this release. Use{" "}
+        The per-schema list of attestations lives off chain in the indexer,
+        which is out of scope for this release. Use{" "}
         <Link href="/">subject lookup</Link> to browse a specific address, or{" "}
         <Link href="/issue">issue an attestation</Link> under this schema.
       </p>

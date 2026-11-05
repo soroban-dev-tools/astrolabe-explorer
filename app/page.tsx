@@ -6,7 +6,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Schema } from "@astrolabe/sdk";
 import { useWallet } from "@/lib/wallet";
-import { Badge, Button, Card, Empty, Field, Input, Mono } from "@/components/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  Empty,
+  Field,
+  Input,
+  Mono,
+} from "@/components/ui";
 
 interface Row {
   uid: string;
@@ -44,9 +52,9 @@ export default function HomePage() {
       <section className="space-y-2">
         <h1 className="text-2xl font-semibold">Schemas</h1>
         <p className="text-sm text-muted">
-          The registry does not enumerate schemas on chain by design; a full list
-          is the indexer&apos;s job. Below are the seed schemas registered on
-          Testnet.
+          The registry does not enumerate schemas on chain by design; a full
+          list is the indexer&apos;s job. Below are the seed schemas registered
+          on Testnet.
         </p>
       </section>
 

@@ -7,7 +7,8 @@ import { resolveDeployments, rpcUrl } from "@/lib/deployments";
 
 export const metadata: Metadata = {
   title: "Astrolabe Explorer",
-  description: "Browse and issue attestations on the Astrolabe registry (Testnet).",
+  description:
+    "Browse and issue attestations on the Astrolabe registry (Testnet).",
 };
 
 export default function RootLayout({
