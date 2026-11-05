@@ -24,5 +24,8 @@ export function resolveDeployments(): ResolvedDeployments {
 }
 
 export function rpcUrl(): string {
-  return process.env.NEXT_PUBLIC_SOROBAN_RPC_URL ?? "https://soroban-testnet.stellar.org";
+  return (
+    process.env.NEXT_PUBLIC_SOROBAN_RPC_URL ??
+    "https://soroban-testnet.stellar.org"
+  );
 }

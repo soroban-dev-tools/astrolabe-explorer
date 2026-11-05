@@ -58,7 +58,8 @@ describe("deployments configuration resolution", () => {
   });
 
   it("returns custom RPC URL when NEXT_PUBLIC_SOROBAN_RPC_URL is set", () => {
-    process.env.NEXT_PUBLIC_SOROBAN_RPC_URL = "http://localhost:8000/soroban/rpc";
+    process.env.NEXT_PUBLIC_SOROBAN_RPC_URL =
+      "http://localhost:8000/soroban/rpc";
     expect(rpcUrl()).toBe("http://localhost:8000/soroban/rpc");
   });
 });
