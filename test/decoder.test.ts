@@ -9,7 +9,9 @@ describe("Attestation Data Decoder", () => {
     expect(formatFieldValue(42)).toBe("42");
     expect(formatFieldValue(BigInt(1000000000))).toBe("1000000000");
     expect(formatFieldValue("Soroban")).toBe("Soroban");
-    expect(formatFieldValue(new Uint8Array([0xde, 0xad, 0xbe, 0xef]))).toBe("deadbeef");
+    expect(formatFieldValue(new Uint8Array([0xde, 0xad, 0xbe, 0xef]))).toBe(
+      "deadbeef",
+    );
   });
 
   it("decodes valid attestation data into structured fields", () => {
