@@ -18,7 +18,12 @@ describe("ExplorerLink Component & URL Generator", () => {
   });
 
   it("renders anchor tag with security rel and target attributes", () => {
-    render(<ExplorerLink type="account" value="GBTYD5SS7STGNGY25Z57XFCT62XJ4D6ZGBJTYDS6USAGB36W7WFFG225" />);
+    render(
+      <ExplorerLink
+        type="account"
+        value="GBTYD5SS7STGNGY25Z57XFCT62XJ4D6ZGBJTYDS6USAGB36W7WFFG225"
+      />,
+    );
     const link = screen.getByRole("link");
     expect(link.getAttribute("href")).toBe(
       "https://stellar.expert/explorer/testnet/account/GBTYD5SS7STGNGY25Z57XFCT62XJ4D6ZGBJTYDS6USAGB36W7WFFG225",

@@ -11,7 +11,8 @@ const mockConfig: DeploymentConfig = {
     schema_registry: "CBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
   },
   seedSchemas: {
-    test_schema: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    test_schema:
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
   },
 };
 
