@@ -15,6 +15,8 @@ import {
   Input,
   Mono,
 } from "@/components/ui";
+import { CopyButton } from "@/components/copy-button";
+import { decodeContractError } from "@/components/toast";
 
 interface Row {
   uid: string;
@@ -41,7 +43,7 @@ export default function HomePage() {
       })),
     )
       .then((r) => !cancelled && setRows(r))
-      .catch((e) => !cancelled && setError(String(e)));
+      .catch((e) => !cancelled && setError(decodeContractError(e)));
     return () => {
       cancelled = true;
     };
@@ -65,32 +67,38 @@ export default function HomePage() {
         {rows === null && !error && <Empty>Loading schemas…</Empty>}
         {rows?.length === 0 && <Empty>No schemas configured.</Empty>}
         {rows?.map((row) => (
-          <Link
-            key={row.uid}
-            href={`/schema/${row.uid}`}
-            className="block no-underline"
-          >
-            <Card className="hover:border-accent">
-              <div className="flex items-center justify-between gap-3">
-                <div className="space-y-1">
-                  <div className="font-medium text-fg">
-                    {row.schema?.name ?? row.name}
-                  </div>
-                  <div className="text-sm text-muted">
-                    {row.schema?.definition ?? "—"}
-                  </div>
-                  <Mono>{row.uid}</Mono>
-                </div>
-                {row.schema ? (
-                  <Badge tone={row.schema.revocable ? "green" : "muted"}>
-                    {row.schema.revocable ? "revocable" : "irrevocable"}
-                  </Badge>
-                ) : (
-                  <Badge tone="red">missing</Badge>
-                )}
+          <Card key={row.uid} className="space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <Link
+                href={`/schema/${row.uid}`}
+                className="font-medium text-fg hover:underline"
+              >
+                {row.schema?.name ?? row.name}
+              </Link>
+              {row.schema ? (
+                <Badge tone={row.schema.revocable ? "green" : "muted"}>
+                  {row.schema.revocable ? "revocable" : "irrevocable"}
+                </Badge>
+              ) : (
+                <Badge tone="red">missing</Badge>
+              )}
+            </div>
+            <div className="text-sm text-muted">
+              {row.schema?.definition ?? "—"}
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-border/40">
+              <div className="flex items-center gap-2">
+                <Mono>{row.uid}</Mono>
+                <CopyButton text={row.uid} label="UID" />
               </div>
-            </Card>
-          </Link>
+              <Link
+                href={`/schema/${row.uid}`}
+                className="text-xs text-accent hover:underline"
+              >
+                View schema details →
+              </Link>
+            </div>
+          </Card>
         ))}
       </section>
 
