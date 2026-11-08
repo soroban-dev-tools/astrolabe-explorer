@@ -10,6 +10,7 @@ import { useWallet } from "@/lib/wallet";
 import { Badge, Button, Card, Empty, Mono } from "@/components/ui";
 import { CopyButton } from "@/components/copy-button";
 import { ExplorerLink } from "@/components/explorer-link";
+import { RecentAttestations } from "@/components/recent-attestations";
 import { decodeContractError } from "@/components/toast";
 
 export default function SchemaPage() {
@@ -100,10 +101,11 @@ export default function SchemaPage() {
         </Card>
       </section>
 
+      <RecentAttestations schemaUid={uid} />
+
       <p className="text-sm text-muted">
-        The per-schema list of attestations lives off chain in the indexer,
-        which is out of scope for this release. Use{" "}
-        <Link href="/">subject lookup</Link> to browse a specific address, or{" "}
+        Use <Link href="/">subject lookup</Link> to browse a specific address,
+        or{" "}
         <Link href={`/issue?schema=${encodeURIComponent(uid)}`}>
           issue an attestation
         </Link>{" "}
