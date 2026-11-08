@@ -4,12 +4,13 @@
 import Link from "next/link";
 import { useWallet } from "@/lib/wallet";
 import { Button, shorten } from "@/components/ui";
+import { SearchBox } from "@/components/search-box";
 
 export function Header() {
   const { address, connect, disconnect } = useWallet();
   return (
     <header className="border-b border-border">
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <nav className="flex items-center gap-4 text-sm">
           <Link href="/" className="font-semibold text-fg no-underline">
             Astrolabe
@@ -21,6 +22,7 @@ export function Header() {
             Issue
           </Link>
         </nav>
+        <SearchBox />
         {address ? (
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs text-muted">
