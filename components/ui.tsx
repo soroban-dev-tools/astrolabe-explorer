@@ -34,7 +34,7 @@ export function Button({
   }[variant];
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${styles} ${className}`}
+      className={`inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-50 ${styles} ${className}`}
       {...props}
     >
       {children}
@@ -85,7 +85,7 @@ export function Field({
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
-      className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm outline-none focus:border-accent"
+      className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm outline-none transition focus:border-accent focus:ring-1 focus:ring-accent disabled:opacity-50"
       {...props}
     />
   );

@@ -136,7 +136,7 @@ function IssueForm() {
       <Card className="space-y-4">
         <Field label="Schema">
           <select
-            className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm"
+            className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm outline-none transition focus:border-accent focus:ring-1 focus:ring-accent"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
           >
@@ -194,7 +194,7 @@ function IssueForm() {
           <Field key={f.name} label={`${f.name} (${f.type})`}>
             {f.type === "bool" ? (
               <select
-                className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm"
+                className="w-full rounded-md border border-border bg-bg px-3 py-1.5 text-sm outline-none transition focus:border-accent focus:ring-1 focus:ring-accent"
                 value={values[f.name] ?? "false"}
                 onChange={(e) =>
                   setValues((v) => ({ ...v, [f.name]: e.target.value }))
