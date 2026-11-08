@@ -1,103 +1,68 @@
-# Open Issues — astrolabe-explorer
+# Project Issues & Roadmap — astrolabe-explorer
 
-Unclaimed work in the web app, ordered easiest to hardest. Difficulty labels:
-`good first issue`, `intermediate`, `advanced`. This list is the source of truth
-for the "Where to start" section of `CONTRIBUTING.md`.
-
-The single largest unclaimed piece is **E6, the indexer-backed browse experience**,
-which unlocks schema-wide and issuer-wide listing that the chain cannot provide.
+This document tracks completed grant milestones and the curated post-grant roadmap (~10%).
 
 ---
 
-## E1. Decode and display attestation data
+## Completed Milestones (v0.1.0)
 
-**Difficulty:** good first issue
-**Likely files:** `app/subject/[address]/page.tsx`, `lib/`
+- [x] **E1. Decode and display attestation data** — Implemented in `lib/decoder.ts` and `app/subject/[address]/page.tsx`. Renders decoded field tables with name-value pairs and raw hex fallback.
+- [x] **E2. Copy-to-clipboard and stellar.expert links** — Implemented in `components/copy-button.tsx` and `components/explorer-link.tsx`. One-click clipboard copy and deep links to stellar.expert across all views.
+- [x] **E3. Toasts for write results** — Implemented in `components/toast.tsx`. Accessible toast notification system with Soroban contract trap decoder (`decodeContractError`).
+- [x] **E4. Expiration input on the issue form** — Implemented in `app/issue/page.tsx` and `lib/coercion.ts`. Date/time picker with future-date validation and ledger timestamp conversion.
+- [x] **E5. Accessibility and responsive pass** — Focus rings, ARIA roles, responsive navigation, custom 404 page (`app/not-found.tsx`), and root error boundary (`app/error.tsx`).
+- [x] **E6. Indexer-backed browse** — Implemented in `lib/indexer.ts` and `components/recent-attestations.tsx`. Paginated recent attestation listings by schema with graceful fallback.
+- [x] **E7. Global Search** — Implemented in `lib/search.ts` and `components/search-box.tsx`. Input resolver for Stellar account addresses, contract IDs, schema UIDs, and fuzzy seed schema names.
 
-Attestations show metadata but not their decoded `data`. Fetch the schema for each
-attestation and use `decodeData` from the SDK to render the fields.
+---
 
-**Acceptance criteria**
+## Post-Grant Roadmap (Future Work)
 
-- Each attestation row shows its decoded fields with names and values.
-- Decode failures degrade gracefully to a raw-bytes view.
+The remaining ~10% of planned capabilities for post-grant expansion:
 
-## E2. Copy-to-clipboard and stellar.expert links
+### E8. Schema Registration UI
 
-**Difficulty:** good first issue
-**Likely files:** `components/ui.tsx`, pages
-
-uids and addresses are shown truncated. Add copy buttons and links to
-stellar.expert for addresses and transactions.
-
-**Acceptance criteria**
-
-- One-click copy for every uid and address.
-- External links open the Testnet explorer.
-
-## E3. Toasts for write results
-
-**Difficulty:** good first issue
-**Likely files:** `components/`, `app/issue/page.tsx`, `app/subject/[address]/page.tsx`
-
-Attest and revoke report inline. Add a small toast system for success and error,
-including the contract error code surfaced by the SDK.
+**Difficulty:** intermediate  
+**Likely files:** `app/schema/new/page.tsx`, `lib/wallet.tsx`  
+Allow connected authorities to register new immutable schemas directly through an interactive form builder instead of CLI scripts.
 
 **Acceptance criteria**
 
-- Success and failure toasts for attest and revoke.
-- The contract error code is shown on failure.
+- Form builder for field name and type definition pairs (`string`, `bool`, `u32`, `i32`, `u64`, `i64`, `bytes`, `address`).
+- Toggle for revocability and optional resolver contract ID.
+- Simulation and signing via connected Stellar Wallets Kit wallet.
 
-## E4. Expiration input on the issue form
+### E9. Off-Chain Attestation Verification
 
-**Difficulty:** intermediate
-**Likely files:** `app/issue/page.tsx`
-
-The issue form cannot set an expiry. Add an optional expiration (date/time picker)
-that maps to a ledger timestamp and passes through to `attest`.
-
-**Acceptance criteria**
-
-- Optional expiry; empty means non-expiring.
-- The resulting attestation reflects the expiry in its validity.
-
-## E5. Accessibility and responsive pass
-
-**Difficulty:** intermediate
-**Likely files:** `components/`, `app/`
-
-Audit for keyboard navigation, focus states, colour contrast, and mobile layout.
-Every page must work with no wallet connected.
+**Difficulty:** intermediate  
+**Likely files:** `app/verify/page.tsx`, `lib/verify.ts`  
+Support importing and verifying off-chain signed attestations against registered schemas without requiring ledger transaction submission.
 
 **Acceptance criteria**
 
-- Keyboard-only flows work end to end.
-- Meets WCAG AA contrast; no layout breakage down to 360px width.
+- JSON drag-and-drop file import for off-chain attestation envelopes.
+- Cryptographic signature verification against the declared issuer address.
+- Schema conformity check using schema registry on chain.
 
-## E6. Indexer-backed browse
+### E10. Multi-Network Switcher (Mainnet / Testnet / Futurenet)
 
-**Difficulty:** advanced
-**Likely files:** new service, `app/schema/[uid]/page.tsx`, `app/`
-
-The chain does not enumerate attestations by schema or issuer. Build (or integrate)
-the indexer read API so a schema page can list its recent attestations and issuers
-can be browsed. This is the largest piece and pairs with the indexer work in the
-project roadmap.
+**Difficulty:** intermediate  
+**Likely files:** `lib/wallet.tsx`, `components/header.tsx`, `lib/deployments.ts`  
+Add network selector in the navigation header allowing users to toggle between Stellar Mainnet, Testnet, and custom RPC deployments.
 
 **Acceptance criteria**
 
-- A schema page lists recent attestations from the indexer with pagination.
-- The app still works, in a reduced form, when the indexer is unavailable.
+- Network dropdown in navigation header with status indicator.
+- Automatically re-initializes SDK client and wallet network passphrase on network change.
+- Dynamic persistence in browser local storage.
 
-## E7. Search
+### E11. Export Attestations (CSV / JSON)
 
-**Difficulty:** intermediate
-**Likely files:** `app/`, indexer API
-
-Add search over schemas and addresses. Depends on E6 for anything beyond the seed
-schemas and a direct address lookup.
+**Difficulty:** good first issue  
+**Likely files:** `app/subject/[address]/page.tsx`, `components/export-button.tsx`  
+Allow users to export a subject's attestation history or schema attestation list to CSV or JSON for offline analysis.
 
 **Acceptance criteria**
 
-- Search box resolves a schema by name and an address to its subject page.
-- Empty and no-result states are handled.
+- "Export" dropdown button on subject and schema pages.
+- Downloads properly formatted CSV or JSON file containing decoded field data.

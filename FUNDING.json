@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "astrolabe-explorer",
+  "description": "Open attestation registry explorer for Stellar's Soroban platform",
+  "repository": "https://github.com/soroban-dev-tools/astrolabe-explorer",
+  "drips": {
+    "network": "stellar",
+    "project": "astrolabe-explorer"
+  }
+}
